@@ -1,14 +1,25 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSignedIn, setSignedIn, setUserData } from '../features/userSlice';
+
+import "../styling/home.css";
 
 const Homepage = () => {
 
+    const dispatch = useDispatch();
+
     const login = (response) => {
-console.log(response);
+        console.log(response);
+        dispatch(setSignedIn(true));
+        dispatch(setUserData(response.profileObj));
     };
 
+    const isSignedIn = useSelector(selectSignedIn);
+
     return (
-        <div className="home__page">
+        <div className="home__page" style={{display:isSignedIn ? "none" : ""}}>
+            {!isSignedIn && (
             <div className="login__message">
                 <h1>Mi Blog</h1>
                 <p>
@@ -31,6 +42,8 @@ console.log(response);
                     cookiePolicy={"single_host_origin"}
                 />
             </div>
+             )
+            }
         </div>
     )
 }
