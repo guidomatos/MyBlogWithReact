@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { 
 selectSignedIn, 
 selectUserData, 
+setInput, 
 setSignedIn, 
 setUserData } from '../features/userSlice';
 
@@ -16,7 +17,8 @@ const Navbar = () => {
     const userData = useSelector(selectUserData);
 
     const handleClick = (e) => {
-
+        e.preventDefault();
+        dispatch(setInput(inputValue));
     }
 
     const dispatch = useDispatch();
